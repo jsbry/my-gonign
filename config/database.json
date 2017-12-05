@@ -1,0 +1,8 @@
+{
+	"dsn"     : "%s:%s@%s/%s?charset=%s",
+	"username": "username",
+	"password": "password",
+	"server"  : "tcp(127.0.0.1:3306)",
+	"database": "database",
+	"charset" : "utf8"
+}
