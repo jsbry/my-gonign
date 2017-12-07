@@ -1,8 +1,8 @@
 {
 	"dsn"     : "%s:%s@%s/%s?charset=%s",
-	"username": "username",
-	"password": "password",
+	"username": "gonign",
+	"password": "gonign",
 	"server"  : "tcp(127.0.0.1:3306)",
-	"database": "database",
+	"database": "gonign",
 	"charset" : "utf8"
 }

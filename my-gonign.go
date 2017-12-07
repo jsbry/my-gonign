@@ -14,9 +14,9 @@ import (
 
 func createMyRender() multitemplate.Render {
 	r := multitemplate.New()
-	r.AddFromFiles("index", "./templates/base.html", "./templates/index.html")
-	r.AddFromFiles("project", "./templates/base.html", "./templates/project.html")
-	//r.AddFromFiles("article", "./templates/base.html", "templates/index.html", "templates/article.html")
+	r.AddFromFiles("Index", "./templates/Base.html", "./templates/Index.html")
+	r.AddFromFiles("Project", "./templates/Base.html", "./templates/Project.html")
+	r.AddFromFiles("NoRoute", "./templates/Base.html", "./templates/NoRoute.html")
 	return r
 }
 
@@ -28,17 +28,62 @@ func main() {
 	router.Static("/fonts", "./fonts")
 
 	router.HTMLRender = createMyRender()
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(200, "index", gin.H{
-			"title": "ダッシュボード",
-		})
-	})
-	router.GET("/project", func(c *gin.Context) {
-		c.HTML(200, "project", gin.H{
-			"title": "プロジェクト",
-		})
-	})
+
+	router.GET("/", Index)
+	router.GET("/project", Project)
+
+	router.NoRoute(NoRoute)
 	router.Run(":8080")
+}
+
+func Index(c *gin.Context) {
+	c.HTML(200, "Index", gin.H{
+		"title": "ダッシュボード",
+	})
+}
+
+func Project(c *gin.Context) {
+	var project_id, project_name string
+	var list []gin.H
+	InitDB()
+	defer db.Close()
+
+	rows, err := db.Query("SELECT project_id, project_name FROM projects WHERE is_deleted = 0")
+	if err != nil {
+		c.JSON(500, gin.H{
+			"result":  500,
+			"message": err.Error(),
+		})
+		return
+	}
+	defer rows.Close()
+
+	for i := 0; rows.Next(); i++ {
+		if err := rows.Scan(&project_id, &project_name); err != nil {
+			c.JSON(500, gin.H{
+				"result":  500,
+				"message": err.Error(),
+			})
+			return
+		}
+		data := gin.H{
+			"project_id":   project_id,
+			"project_name": project_name,
+		}
+		list = append(list, data)
+	}
+
+	c.HTML(200, "Project", gin.H{
+		"title": "プロジェクト",
+		"list":  list,
+	})
+	return
+}
+
+func NoRoute(c *gin.Context) {
+	c.HTML(404, "NoRoute", gin.H{
+		"title": "Not Found",
+	})
 }
 
 /**
@@ -54,7 +99,7 @@ type DbConfig struct {
 }
 
 var conf DbConfig
-var db sql.DB
+var db *sql.DB
 
 func InitDB() (int, error) {
 	jsonString, err := ioutil.ReadFile("./config/database.json")
@@ -67,12 +112,11 @@ func InitDB() (int, error) {
 	}
 
 	connect := fmt.Sprintf(conf.Dsn, conf.Username, conf.Password, conf.Server, conf.Database, conf.Charset)
-	db, err := sql.Open("mysql", connect)
+	db, err = sql.Open("mysql", connect)
 
 	if err != nil {
 		return 500, err
 	}
-	defer db.Close()
 
 	return 0, nil
 }
