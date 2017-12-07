@@ -1,32 +1,33 @@
 {{define "content"}}
 
-	<div class="col-xs-12">
+			<div class="col-xs-12">
 
-		<table class="table">
-			<thead>
-				<tr>
-					<td>#</td>
-					<td>プロジェクト</td>
-					<td class="width200">操作</td>
-				</tr>
-			</thead>
-			<tbody>
-			{{range .list}}
-				<tr>
-					<td>{{.project_id}}</td>
-					<td>{{.project_name}}</td>
-					<td>
-						<button type="button" class="btn btn-primary">
-							DB設計
-						</button>
-						<button type="button" class="btn btn-primary">
-							API設計
-						</button>
-					</td>
-				</tr>
-			{{end}}
-			</tbody>
-		</table>
-	</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<td>#</td>
+							<td>プロジェクト</td>
+							<td class="width200">操作</td>
+						</tr>
+					</thead>
+					<tbody>
+					{{range .list}}
+						<tr>
+							<td>{{.project_id}}</td>
+							<td>{{.project_name}}</td>
+							<td>
+								<a href="/db/{{.project_id}}" class="btn btn-primary">
+									DB設計
+								</a>
+								<a href="/api/{{.project_id}}" class="btn btn-primary">
+									API設計
+								</a>
+							</td>
+						</tr>
+					{{end}}
+					</tbody>
+				</table>
+
+			</div>
 
 {{end}}

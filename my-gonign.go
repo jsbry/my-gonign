@@ -26,6 +26,7 @@ func main() {
 	router.Static("/css", "./css")
 	router.Static("/js", "./js")
 	router.Static("/fonts", "./fonts")
+	router.StaticFile("/favicon.ico", "./favicon.ico")
 
 	router.HTMLRender = createMyRender()
 
