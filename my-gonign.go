@@ -16,6 +16,8 @@ func createMyRender() multitemplate.Render {
 	r := multitemplate.New()
 	r.AddFromFiles("Index", "./templates/Base.html", "./templates/Index.html")
 	r.AddFromFiles("Project", "./templates/Base.html", "./templates/Project.html")
+	r.AddFromFiles("Db", "./templates/Base.html", "./templates/Db.html")
+	r.AddFromFiles("Error", "./templates/Base.html", "./templates/Error.html")
 	r.AddFromFiles("NoRoute", "./templates/Base.html", "./templates/NoRoute.html")
 	return r
 }
@@ -32,6 +34,7 @@ func main() {
 
 	router.GET("/", Index)
 	router.GET("/project", Project)
+	router.GET("/db/:id", Db)
 
 	router.NoRoute(NoRoute)
 	router.Run(":8080")
@@ -49,11 +52,20 @@ func Project(c *gin.Context) {
 	InitDB()
 	defer db.Close()
 
+	err := db.Ping()
+	if err != nil {
+		c.HTML(200, "Error", gin.H{
+			"title":   "エラー",
+			"message": "データベースエラーが発生しました",
+		})
+		return
+	}
+
 	rows, err := db.Query("SELECT project_id, project_name FROM projects WHERE is_deleted = 0")
 	if err != nil {
-		c.JSON(500, gin.H{
-			"result":  500,
-			"message": err.Error(),
+		c.HTML(200, "Error", gin.H{
+			"title":   "エラー",
+			"message": "データベースエラーが発生しました",
 		})
 		return
 	}
@@ -61,9 +73,9 @@ func Project(c *gin.Context) {
 
 	for i := 0; rows.Next(); i++ {
 		if err := rows.Scan(&project_id, &project_name); err != nil {
-			c.JSON(500, gin.H{
-				"result":  500,
-				"message": err.Error(),
+			c.HTML(200, "Error", gin.H{
+				"title":   "エラー",
+				"message": "データベースエラーが発生しました",
 			})
 			return
 		}
@@ -77,6 +89,39 @@ func Project(c *gin.Context) {
 	c.HTML(200, "Project", gin.H{
 		"title": "プロジェクト",
 		"list":  list,
+	})
+	return
+}
+
+func Db(c *gin.Context) {
+	id := c.Param("id")
+	var project_id, project_name, updated string
+
+	InitDB()
+	defer db.Close()
+
+	err := db.Ping()
+	if err != nil {
+		c.HTML(200, "Error", gin.H{
+			"title":   "エラー",
+			"message": "データベースエラーが発生しました",
+		})
+		return
+	}
+
+	if err := db.QueryRow("SELECT project_id, project_name, updated FROM projects WHERE project_id = ? AND is_deleted = 0 LIMIT 1", id).Scan(&project_id, &project_name, &updated); err != nil {
+		c.HTML(200, "Error", gin.H{
+			"title":   "エラー",
+			"message": "データベースエラーが発生しました",
+		})
+		return
+	}
+
+	c.HTML(200, "Db", gin.H{
+		"title":        "DB設計書",
+		"project_id":   project_id,
+		"project_name": project_name,
+		"updated":      updated,
 	})
 	return
 }

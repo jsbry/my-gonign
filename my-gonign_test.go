@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -12,6 +11,4 @@ func Test_Path(t *testing.T) {
 	} else {
 		t.Log(code)
 	}
-	fmt.Printf("Log:%T\n", &db)
-	fmt.Print(&db)
 }
