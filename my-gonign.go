@@ -109,7 +109,7 @@ func Db(c *gin.Context) {
 		return
 	}
 
-	if err := db.QueryRow("SELECT project_id, project_name, updated FROM projects WHERE project_id = ? AND is_deleted = 0 LIMIT 1", id).Scan(&project_id, &project_name, &updated); err != nil {
+	if err := db.QueryRow("SELECT project_id, project_name, DATE_FORMAT(updated, '%Y年%m月%d日 %H:%i:%s') AS updated FROM projects WHERE project_id = ? AND is_deleted = 0 LIMIT 1", id).Scan(&project_id, &project_name, &updated); err != nil {
 		c.HTML(200, "Error", gin.H{
 			"title":   "エラー",
 			"message": "データベースエラーが発生しました",
