@@ -11,3 +11,14 @@ body {
 .width200 {
 	width: 200px;
 }
+
+.label-blue {
+	background-color: #223962;
+	color: #FFF;
+	font-weight: bold;
+}
+.table-blue thead th {
+	background-color: #8eaadb;
+	color: #000;
+	font-weight: bold;
+}
