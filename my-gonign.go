@@ -122,6 +122,7 @@ func Db(c *gin.Context) {
 		"project_id":   project_id,
 		"project_name": project_name,
 		"updated":      updated,
+		"vuejs":        "db.js",
 	})
 	return
 }

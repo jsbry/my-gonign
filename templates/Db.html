@@ -8,7 +8,9 @@
 						<a href="#home" data-toggle="tab">DB設計書</a>
 					</li>
 					<li class="">
-						<a href="#plus" data-toggle="tab">&ensp;<i class="fa fa-plus-circle" aria-hidden="true"></i>&ensp;</a>
+						<a href="#plus" data-toggle="tab">
+							<span class="badge">NEW</span>
+						</a>
 					</li>
 				</ul>
 				<div class="tab-content">
@@ -18,10 +20,11 @@
 								<p class="col-xs-12 form-control-static label-blue">データベース名</p>
 							</div>
 							<div class="col-sm-7 col-xs-12">
-								<p class="form-control-static">
+								<p class="form-control-static" v-show="viewable.dbname">
 									gonign
-									&ensp;<a href="javascript:void(0);"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+									&ensp;<a href="javascript:void(0);" v-on:click="Editable('dbname')"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 								</p>
+								<input type="text" class="form-control" v-show="!viewable.dbname">
 							</div>
 						</div>
 						<div class="table-responsive">
