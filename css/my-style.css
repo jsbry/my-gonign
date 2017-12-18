@@ -22,3 +22,13 @@ body {
 	color: #000;
 	font-weight: bold;
 }
+
+.pointer {
+	cursor: pointer
+}
+.editable-color {
+	color: #09fff6;
+}
+.saved-color {
+	color: #01ff0c;
+}

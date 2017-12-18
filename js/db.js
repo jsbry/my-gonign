@@ -9,9 +9,9 @@ new Vue({
 		var self = this;
 	},
 	methods: {
-		Editable: function(t) {
+		Changed: function(t) {
 			var self = this;
-			self.viewable[t] = false;
-		}
+			self.viewable[t] = !self.viewable[t];
+		},
 	}
 });
