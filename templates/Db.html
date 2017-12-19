@@ -26,9 +26,9 @@
 							</div>
 							<div class="col-sm-7 col-xs-12">
 								<p class="form-control-static" v-show="viewable.dbname">
-									gonign
+									%%db_name%%
 								</p>
-								<input type="text" class="form-control" v-show="!viewable.dbname">
+								<input type="text" class="form-control" v-show="!viewable.dbname" v-model="db_name">
 							</div>
 						</div>
 						<div class="table-responsive">
@@ -69,7 +69,10 @@
 				</div>
 				<p>更新時間：{{ .updated }}</p>
 
-
 			</div>
+
+			<input type="hidden" id="db_name" value="{{ .db_name }}">
+			<input type="hidden" id="db_engine" value="{{ .db_engine }}">
+			<input type="hidden" id="db_charset" value="{{ .db_charset }}">
 
 {{end}}

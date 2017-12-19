@@ -96,6 +96,7 @@ func Project(c *gin.Context) {
 func Db(c *gin.Context) {
 	id := c.Param("id")
 	var project_id, project_name, updated string
+	var db_name, db_engine, db_charset string
 
 	InitDB()
 	defer db.Close()
@@ -117,11 +118,22 @@ func Db(c *gin.Context) {
 		return
 	}
 
+	if err := db.QueryRow("SELECT db_name, db_engine, db_charset FROM dbs WHERE project_id = ? AND is_deleted = 0 LIMIT 1", id).Scan(&db_name, &db_engine, &db_charset); err != nil {
+		c.HTML(200, "Error", gin.H{
+			"title":   "エラー",
+			"message": "データベースエラーが発生しました",
+		})
+		return
+	}
+
 	c.HTML(200, "Db", gin.H{
 		"title":        "DB設計書",
 		"project_id":   project_id,
 		"project_name": project_name,
 		"updated":      updated,
+		"db_name":      db_name,
+		"db_engine":    db_engine,
+		"db_charset":   db_charset,
 		"vuejs":        "db.js",
 	})
 	return
