@@ -2,6 +2,8 @@ new Vue({
 	el: '#container',
 	delimiters: ['%%', '%%'],
 	data: {
+		id: "",
+		updated: "",
 		db_name: "",
 		db_engine: "",
 		db_charset: "",
@@ -11,12 +13,24 @@ new Vue({
 	},
 	created: function(){
 		var self = this;
-		self.db_name = $("#db_name").val();
+		params = location.href.split("/");
+		self.id = params[params.length -1];
+		self.getDbinfo();
 	},
 	methods: {
 		Changed: function(t) {
 			var self = this;
 			self.viewable[t] = !self.viewable[t];
+		},
+		getDbinfo: function() {
+			var self = this;
+			axios.get(
+				"/dbinfo/" + self.id,{
+			}).then(function(res){
+				console.log(res.data);
+			}).catch(function(error){
+				console.log(error);
+			});
 		},
 	}
 });
