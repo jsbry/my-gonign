@@ -4,9 +4,14 @@
 	display: none;
 }
 
-sidebar,
+sidebar {
+	float: left;
+}
 section {
 	float: left;
+	width: calc(100% - 85px);
+	word-break: break-all;
+	padding: 10px;
 }
 .el-menu-sidebar {
 	max-width: 200px;
@@ -19,7 +24,6 @@ section {
 .el-tooltip {
 	padding: 20px !important;
 }
-
 .width200 {
 	width: 200px;
 }
