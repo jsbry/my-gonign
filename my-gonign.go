@@ -17,6 +17,7 @@ func createMyRender() multitemplate.Render {
 	r.AddFromFiles("Index", "./templates/Base.html", "./templates/Index.html")
 	r.AddFromFiles("Project", "./templates/Base.html", "./templates/Project.html")
 	r.AddFromFiles("Db", "./templates/Base.html", "./templates/Db.html")
+	r.AddFromFiles("Api", "./templates/Base2.html", "./templates/Api.html")
 	r.AddFromFiles("Error", "./templates/Base.html", "./templates/Error.html")
 	r.AddFromFiles("NoRoute", "./templates/Base.html", "./templates/NoRoute.html")
 	return r
@@ -36,6 +37,7 @@ func main() {
 	router.GET("/project", Project)
 	router.GET("/db/:id", Db)
 	router.GET("/dbinfo/:id", Dbinfo)
+	router.GET("/api", Api)
 
 	router.NoRoute(NoRoute)
 	router.Run(":8080")

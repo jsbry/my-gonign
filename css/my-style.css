@@ -4,15 +4,27 @@
 	display: none;
 }
 
-body {
-	margin-top: 100px;
+sidebar,
+section {
+	float: left;
+}
+.el-menu-sidebar {
+	max-width: 200px;
+	height: 100%;
+}
+.el-menu-sidebar:not(.el-menu--collapse) {
+	width: 200px;
+	min-height: 400px;
+}
+.el-tooltip {
+	padding: 20px !important;
 }
 
 .width200 {
 	width: 200px;
 }
 
-.label-blue {
+/* .label-blue {
 	background-color: #223962;
 	color: #FFF;
 	font-weight: bold;
@@ -31,4 +43,4 @@ body {
 }
 .saved-color {
 	color: #01ff0c;
-}
+} */

@@ -1,1 +1,1 @@
-go run my-gonign.go
+go run my-gonign.go api.go
