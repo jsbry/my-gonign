@@ -4,28 +4,30 @@
 	display: none;
 }
 
-sidebar {
+.el-aside {
 	float: left;
 }
-section {
+#main {
 	float: left;
-	width: calc(100% - 85px);
+	width: calc(100% - 65px);
 	word-break: break-all;
-	padding: 10px;
 }
-.el-menu-sidebar {
+
+/* .el-aside {
 	max-width: 200px;
-	height: 100%;
 }
 .el-menu-sidebar:not(.el-menu--collapse) {
 	width: 200px;
-	min-height: 400px;
+} */
+.el-header {
+	padding: 0px;
+}
+.el-menu-sidebar {
+	background-color: #545c64;
+	height: calc(100% - 60px);
 }
 .el-tooltip {
 	padding: 20px !important;
-}
-.width200 {
-	width: 200px;
 }
 
 /* .label-blue {

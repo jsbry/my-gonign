@@ -1,5 +1,5 @@
 new Vue({
-	el: '#container',
+	el: '#main',
 	delimiters: ['%%', '%%'],
 	data: {
 		id: "",

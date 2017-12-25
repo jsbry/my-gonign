@@ -5,62 +5,54 @@
 		<title>{{ .title }}</title>
 		<link rel="shortcut icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
 		<link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
-		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css?v=3.3.7"/>
-		<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="/css/my-style.css"/>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css?v=7.0.0"/>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.0.8/theme-chalk/index.css?v=2.0.8"/>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css?v=4.7.0">
+		<link rel="stylesheet" type="text/css" href="/css/my-style.css?v=0.0.0">
 	</head>
 	<body>
-	<header>
-		<div class="navbar navbar-default navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<span class="navbar-brand">{{ .title }}</span>
-					<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav navbar-right">
-<!--
-						<li class="active">
-							<a href="/project">
-								<i class="fa fa-cubes" aria-hidden="true"></i>&nbsp;プロジェクト
-							</a>
-						</li>
--->
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-								<i class="fa fa-bars" aria-hidden="true"></i>&ensp;メニュー
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu" role="menu">
-								<li class="active">
-									<a href="/project">
-										<i class="fa fa-cubes" aria-hidden="true"></i>&nbsp;プロジェクト
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+		<el-container>
+			<div id="navbar">
+				<el-header>
+					<el-menu class="header" mode="horizontal">
+						<el-menu-item v-on:click="headerCollapse()">
+							<i class="fa fa-bars" aria-hidden="true"></i>
+						</el-menu-item>
+						<el-menu-item index="1">
+							ダッシュボード
+						</el-menu-item>
+					</el-menu>
+				</el-header>
+				<el-aside width="65px">
+					<el-menu default-active="1" class="el-menu-sidebar" :collapse="isCollapse" background-color="#545c64" text-color="#fff">
+						<el-menu-item index="1">
+							<i class="fa fa-cubes" aria-hidden="true"></i>
+							<span slot="title">&ensp;プロジェクト&ensp;</span>
+						</el-menu-item>
+						<el-menu-item index="2">
+							<i class="fa fa-cogs" aria-hidden="true"></i>
+							<span slot="title">&ensp;設定&ensp;</span>
+						</el-menu-item>
+					</el-menu>
+				</el-aside>
 			</div>
-		</div>
-	</header>
-	<div class="container" id="container">
-		<div class="row">
 
-			{{template "content" .}}
+			<div id="main">
+				<el-main>
+					{{template "content" .}}
+				</el-main>
+			</div>
 
-		</div>
-	</div>
-	<script type="text/javascript" src="/js/jquery.min.js?v=3.2.1"></script>
-	<script type="text/javascript" src="/js/bootstrap.min.js?v=3.3.7"></script>
-	<script type="text/javascript" src="/js/vue.min.js?v=2.5.9"></script>
-	<script type="text/javascript" src="/js/axios.min.js?v=0.17.1"></script>
+		</el-container>
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js?v=3.2.1"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js?v=2.5.13"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.0.8/index.js?v=2.0.8"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.0.8/locale/ja.min.js?v=2.0.8"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.min.js?v=0.17.1"></script>
+		<script type="text/javascript" src="/js/common.js?v=0.0.0"></script>
 {{if .vuejs}}
-	<script type="text/javascript" src="/js/{{ .vuejs }}"></script>
+		<script type="text/javascript" src="/js/{{ .vuejs }}?v=0.0.0"></script>
 {{end}}
 	</body>
 </html>
