@@ -1,1 +1,1 @@
-go run my-gonign.go db.go
+go run my-gonign.go project.go db.go

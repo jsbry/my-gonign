@@ -34,6 +34,7 @@ func main() {
 
 	router.GET("/", Index)
 	router.GET("/project", Project)
+	router.GET("/projectlist", Projectlist)
 	router.GET("/db/:id", Db)
 	router.GET("/dbinfo/:id", Dbinfo)
 
@@ -45,53 +46,6 @@ func Index(c *gin.Context) {
 	c.HTML(200, "Index", gin.H{
 		"title": "ダッシュボード",
 	})
-}
-
-func Project(c *gin.Context) {
-	var project_id, project_name string
-	var list []gin.H
-	InitDB()
-	defer db.Close()
-
-	err := db.Ping()
-	if err != nil {
-		c.HTML(200, "Error", gin.H{
-			"title":   "エラー",
-			"message": "データベースエラーが発生しました",
-		})
-		return
-	}
-
-	rows, err := db.Query("SELECT project_id, project_name FROM projects WHERE is_deleted = 0")
-	if err != nil {
-		c.HTML(200, "Error", gin.H{
-			"title":   "エラー",
-			"message": "データベースエラーが発生しました",
-		})
-		return
-	}
-	defer rows.Close()
-
-	for i := 0; rows.Next(); i++ {
-		if err := rows.Scan(&project_id, &project_name); err != nil {
-			c.HTML(200, "Error", gin.H{
-				"title":   "エラー",
-				"message": "データベースエラーが発生しました",
-			})
-			return
-		}
-		data := gin.H{
-			"project_id":   project_id,
-			"project_name": project_name,
-		}
-		list = append(list, data)
-	}
-
-	c.HTML(200, "Project", gin.H{
-		"title": "プロジェクト",
-		"list":  list,
-	})
-	return
 }
 
 func NoRoute(c *gin.Context) {

@@ -17,6 +17,9 @@ new Vue({
 				$("#main").css("width","calc(100% - 200px)");
 				$(".el-aside").css("width", "200px");
 			}
+		},
+		locationHref: function(url){
+			location.href = url;
 		}
 	}
 })

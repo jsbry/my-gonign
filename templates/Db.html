@@ -31,8 +31,8 @@
 										<p class="col-xs-12 form-control-static label-blue">
 											データベース名
 											&ensp;
-											<i class="fa fa-pencil-square-o editable-color pointer" aria-hidden="true" v-on:click="Changed('dbname')" v-show="viewable.dbname"></i>
-											<i class="fa fa-check-square-o saved-color pointer" aria-hidden="true" v-on:click="Changed('dbname')" v-show="!viewable.dbname"></i>
+											<i class="fa fa-pencil-square-o editable-color pointer" aria-hidden="true" @click="Changed('dbname')" v-show="viewable.dbname"></i>
+											<i class="fa fa-check-square-o saved-color pointer" aria-hidden="true" @click="Changed('dbname')" v-show="!viewable.dbname"></i>
 										</p>
 									</div>
 									<div class="col-sm-7 col-xs-12">
