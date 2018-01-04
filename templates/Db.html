@@ -4,15 +4,16 @@
 					<el-col :span="24">
 
 						<h2>{{ .project_name }}</h2>
-						<el-tabs type="border-card">
-							<el-tab-pane label="DB設計書">
-								User asdf
-							</el-tab-pane>
-							<el-tab-pane>
-								<span slot="label">NEW&ensp;<i class="fa fa-plus-circle" aria-hidden="true"></i></span>
-								NEW
-							</el-tab-pane>
-						</el-tabs>
+						<el-tabs v-model="editableTabsValue" type="card" editable @edit="handleTabsEdit">
+							<el-tab-pane
+							v-for="(item, index) in editableTabs"
+							:key="item.name"
+							:label="item.title"
+							:name="item.name"
+							>
+							%%item.content%%
+						</el-tab-pane>
+					</el-tabs>
 
 						<ul class="nav nav-tabs">
 							<li class="active">

@@ -7,6 +7,9 @@
 .el-aside {
 	float: left;
 }
+.el-table__empty-block {
+	height: auto;
+}
 #main {
 	float: left;
 	width: calc(100% - 65px);

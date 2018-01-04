@@ -4,15 +4,20 @@
 					<el-col :span="24">
 
 						<el-table :data="projectlist" stripe style="width: 100%">
-							<el-table-column prop="project_id" label="#"></el-table-column>
+							<el-table-column prop="project_id" label="#" width="60"></el-table-column>
 							<el-table-column prop="project_name" label="プロジェクト"></el-table-column>
-							<el-table-column label="DB設計">
+							<el-table-column label="DB設計" width="100">
 								<template slot-scope="scope">
-									<el-button @click="locationDB(scope.row.project_id)">Edit</el-button>
+									<el-button type="primary" @click="locationDB(scope.row.project_id)" plain>Edit</el-button>
 								</template>
 							</el-table-column>
-							<el-table-column prop="created" label="作成日"></el-table-column>
-							<el-table-column prop="updated" label="更新日"></el-table-column>
+							<el-table-column label="API設計" width="100">
+								<template slot-scope="scope">
+									<el-button type="primary" @click="locationAPI(scope.row.project_id)" plain>Edit</el-button>
+								</template>
+							</el-table-column>
+							<el-table-column prop="created" label="作成日" width="230"></el-table-column>
+							<el-table-column prop="updated" label="更新日" width="230"></el-table-column>
 						</el-table>
 
 					</el-col>
