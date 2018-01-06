@@ -12,15 +12,15 @@ new Vue({
 		},
 		editableTabsValue: '2',
 		editableTabs: [{
-			title: 'Tab 1',
+			title: 'projects',
 			name: '1',
-			content: 'Tab 1 content'
+			content: 'projects table'
 		}, {
-			title: 'Tab 2',
+			title: 'dbs',
 			name: '2',
-			content: 'Tab 2 content'
+			content: 'dbs table'
 		}],
-		tabIndex: 2
+		tabIndex: 1
 	},
 	created: function(){
 		var self = this;
@@ -44,10 +44,10 @@ new Vue({
 					self.db_engine = res.data.result.db_engine;
 					self.db_charset = res.data.result.db_charset;
 				}else{
-					networkConnectError();
+					self.networkConnectError();
 				}
 			}).catch(function(error){
-				networkConnectError();
+				self.networkConnectError();
 			});
 		},
 		networkConnectError: function(){

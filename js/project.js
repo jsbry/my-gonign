@@ -17,10 +17,10 @@ new Vue({
 				if(res.data.code == 200){
 					self.projectlist = res.data.result.projectlist;
 				}else{
-					networkConnectError();
+					self.networkConnectError();
 				}
 			}).catch(function(error){
-				networkConnectError();
+				self.networkConnectError();
 			});
 		},
 		networkConnectError: function(){
