@@ -7,16 +7,18 @@
 					</el-col>
 
 					<el-col :span="24">
-						<p class="col-xs-12 form-control-static label-blue">
-							データベース名
-							&ensp;
-							<i class="fa fa-pencil-square-o editable-color pointer" aria-hidden="true" @click="Changed('dbname')" v-show="viewable.dbname"></i>
-							<i class="fa fa-check-square-o saved-color pointer" aria-hidden="true" @click="Changed('dbname')" v-show="!viewable.dbname"></i>
-						</p>
-						<p class="form-control-static" v-show="viewable.dbname">
-							%%db_name%%
-						</p>
-						<input type="text" class="form-control" v-show="!viewable.dbname" v-model="db_name">
+						<el-input placeholder="Please input" v-model="db_name" v-show="viewable.dbname" :disabled="true">
+							<template slot="prepend">データベース名</template>
+							<template slot="append">
+								<i class="fa fa-pencil-square-o pointer" aria-hidden="true" @click="Changed('dbname')" v-show="viewable.dbname"></i>
+							</template>
+						</el-input>
+						<el-input placeholder="Please input" v-model="db_name" v-show="!viewable.dbname">
+							<template slot="prepend">データベース名</template>
+							<template slot="append">
+								<i class="fa fa-check-square-o pointer" aria-hidden="true" @click="Changed('dbname')" v-show="!viewable.dbname"></i>
+							</template>
+						</el-input>
 					</el-col>
 
 					<el-col :span="24">
