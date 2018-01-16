@@ -22,35 +22,35 @@ new Vue({
 		}],
 		tabIndex: 1
 	},
-	created: function(){
+	created: function () {
 		var self = this;
 		params = location.href.split("/");
-		self.id = params[params.length -1];
+		self.id = params[params.length - 1];
 		self.getDbinfo();
 	},
 	methods: {
-		Changed: function(t) {
+		Changed: function (t) {
 			var self = this;
 			self.viewable[t] = !self.viewable[t];
 		},
-		getDbinfo: function() {
+		getDbinfo: function () {
 			var self = this;
 			axios.get(
-				"/dbinfo/" + self.id,{
-			}).then(function(res){
-				if(res.data.code == 200){
-					self.updated = res.data.result.updated;
-					self.db_name = res.data.result.db_name;
-					self.db_engine = res.data.result.db_engine;
-					self.db_charset = res.data.result.db_charset;
-				}else{
+				"/dbinfo/" + self.id, {
+				}).then(function (res) {
+					if (res.data.code == 200) {
+						self.updated = res.data.result.updated;
+						self.db_name = res.data.result.db_name;
+						self.db_engine = res.data.result.db_engine;
+						self.db_charset = res.data.result.db_charset;
+					} else {
+						self.networkConnectError();
+					}
+				}).catch(function (error) {
 					self.networkConnectError();
-				}
-			}).catch(function(error){
-				self.networkConnectError();
-			});
+				});
 		},
-		networkConnectError: function(){
+		networkConnectError: function () {
 			var self = this;
 			self.$alert('通信エラーが発生しました', 'エラー', {
 				confirmButtonText: 'OK',

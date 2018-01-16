@@ -42,21 +42,21 @@ func main() {
 	router.Run(":8080")
 }
 
+// Index ダッシュボード
 func Index(c *gin.Context) {
 	c.HTML(200, "Index", gin.H{
 		"title": "ダッシュボード",
 	})
 }
 
+// NoRoute (404)Not Foundページ
 func NoRoute(c *gin.Context) {
 	c.HTML(404, "NoRoute", gin.H{
 		"title": "Not Found",
 	})
 }
 
-/**
- * データベース接続
- */
+// DbConfig データベース接続用struct
 type DbConfig struct {
 	Dsn      string `json:"dsn"`
 	Username string `json:"username"`
@@ -69,6 +69,7 @@ type DbConfig struct {
 var conf DbConfig
 var db *sql.DB
 
+// InitDB データベース接続
 func InitDB() (int, error) {
 	jsonString, err := ioutil.ReadFile("./config/database.json")
 	if err != nil {

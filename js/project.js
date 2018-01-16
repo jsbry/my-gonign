@@ -4,26 +4,43 @@ new Vue({
 	data: {
 		projectlist: []
 	},
-	created: function(){
+	created: function () {
 		var self = this;
 		self.getProjects();
 	},
 	methods: {
-		getProjects: function() {
+		newRegisterModal: function () {
 			var self = this;
-			axios.get(
-				"/projectlist",{
-			}).then(function(res){
-				if(res.data.code == 200){
-					self.projectlist = res.data.result.projectlist;
-				}else{
-					self.networkConnectError();
-				}
-			}).catch(function(error){
-				self.networkConnectError();
+			self.$prompt('プロジェクト名を入力してください', '新規プロジェクト', {
+				confirmButtonText: '登録',
+				cancelButtonText: '閉じる',
+			}).then(function (value) {
+				self.$message({
+					type: 'success',
+					message: 'Your email is:' + value
+				});
+			}).catch(function () {
+				self.$message({
+					type: 'info',
+					message: 'Input canceled'
+				});
 			});
 		},
-		networkConnectError: function(){
+		getProjects: function () {
+			var self = this;
+			axios.get(
+				"/projectlist", {
+				}).then(function (res) {
+					if (res.data.code == 200) {
+						self.projectlist = res.data.result.projectlist;
+					} else {
+						self.networkConnectError();
+					}
+				}).catch(function (error) {
+					self.networkConnectError();
+				});
+		},
+		networkConnectError: function () {
 			var self = this;
 			self.$alert('通信エラーが発生しました', 'エラー', {
 				confirmButtonText: 'OK',
@@ -35,10 +52,10 @@ new Vue({
 				}
 			});
 		},
-		locationDB: function(id) {
+		locationDB: function (id) {
 			location.href = "/db/" + id;
 		},
-		locationAPI: function(id) {
+		locationAPI: function (id) {
 			location.href = "/api/" + id;
 		}
 	}

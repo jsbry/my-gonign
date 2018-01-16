@@ -2,6 +2,7 @@ package main
 
 import "github.com/gin-gonic/gin"
 
+// Project プロジェクト管理
 func Project(c *gin.Context) {
 	c.HTML(200, "Project", gin.H{
 		"title": "プロジェクト",
@@ -10,8 +11,9 @@ func Project(c *gin.Context) {
 	return
 }
 
+// Projectlist プロジェクト一覧
 func Projectlist(c *gin.Context) {
-	var project_id, project_name, created, updated string
+	var projectID, projectName, created, updated string
 	var list []gin.H
 	InitDB()
 	defer db.Close()
@@ -38,7 +40,7 @@ func Projectlist(c *gin.Context) {
 	defer rows.Close()
 
 	for i := 0; rows.Next(); i++ {
-		if err := rows.Scan(&project_id, &project_name, &created, &updated); err != nil {
+		if err := rows.Scan(&projectID, &projectName, &created, &updated); err != nil {
 			c.JSON(200, gin.H{
 				"code": 500,
 				"error": gin.H{
@@ -48,8 +50,8 @@ func Projectlist(c *gin.Context) {
 			return
 		}
 		data := gin.H{
-			"project_id":   project_id,
-			"project_name": project_name,
+			"project_id":   projectID,
+			"project_name": projectName,
 			"created":      created,
 			"updated":      updated,
 		}
